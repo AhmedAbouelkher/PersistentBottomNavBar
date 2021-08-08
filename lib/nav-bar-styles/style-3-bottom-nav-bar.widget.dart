@@ -8,25 +8,18 @@ class BottomNavStyle3 extends StatelessWidget {
     this.navBarEssentials = const NavBarEssentials(items: null),
   });
 
-  Widget _buildItem(
-      PersistentBottomNavBarItem item, bool isSelected, double? height) {
+  Widget _buildItem(PersistentBottomNavBarItem item, bool isSelected, double? height) {
     return this.navBarEssentials!.navBarHeight == 0
         ? SizedBox.shrink()
         : AnimatedContainer(
             width: 100.0,
             height: height! / 1.0,
-            duration:
-                this.navBarEssentials!.itemAnimationProperties?.duration ??
-                    Duration(milliseconds: 1000),
-            curve: this.navBarEssentials!.itemAnimationProperties?.curve ??
-                Curves.ease,
+            duration: this.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 1000),
+            curve: this.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
             alignment: Alignment.center,
             child: AnimatedContainer(
-              duration:
-                  this.navBarEssentials!.itemAnimationProperties?.duration ??
-                      Duration(milliseconds: 1000),
-              curve: this.navBarEssentials!.itemAnimationProperties?.curve ??
-                  Curves.ease,
+              duration: this.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 1000),
+              curve: this.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
               alignment: Alignment.center,
               height: height / 1.0,
               child: Column(
@@ -44,9 +37,7 @@ class BottomNavStyle3 extends StatelessWidget {
                               : item.inactiveColorPrimary == null
                                   ? item.activeColorPrimary
                                   : item.inactiveColorPrimary),
-                      child: isSelected
-                          ? item.icon
-                          : item.inactiveIcon ?? item.icon,
+                      child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
                     ),
                   ),
                   item.title == null
@@ -56,23 +47,7 @@ class BottomNavStyle3 extends StatelessWidget {
                           child: Material(
                             type: MaterialType.transparency,
                             child: DefaultTextStyle.merge(
-                              style: TextStyle(
-                                  color: item.textStyle != null
-                                      ? item.textStyle!.apply(
-                                              color: isSelected
-                                                  ? (item.activeColorSecondary ==
-                                                          null
-                                                      ? item.activeColorPrimary
-                                                      : item.activeColorSecondary)
-                                                  : item.inactiveColorPrimary)
-                                          as Color?
-                                      : isSelected
-                                          ? (item.activeColorSecondary == null
-                                              ? item.activeColorPrimary
-                                              : item.activeColorSecondary)
-                                          : item.inactiveColorPrimary,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.0),
+                              style: _titleTextStyle(item, isSelected),
                               child: FittedBox(child: Text(item.title!)),
                             ),
                           ),
@@ -83,39 +58,41 @@ class BottomNavStyle3 extends StatelessWidget {
           );
   }
 
+  TextStyle _titleTextStyle(PersistentBottomNavBarItem item, bool isSelected) {
+    var selectedColor = (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary);
+    if (item.textStyle != null) {
+      return item.textStyle!.apply(color: (isSelected ? selectedColor : item.inactiveColorPrimary));
+    }
+    return TextStyle(
+      color: isSelected ? selectedColor : item.inactiveColorPrimary,
+      fontWeight: FontWeight.w400,
+      fontSize: 12.0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Color selectedItemActiveColor = this
-        .navBarEssentials!
-        .items![this.navBarEssentials!.selectedIndex!]
-        .activeColorPrimary;
+    Color selectedItemActiveColor =
+        this.navBarEssentials!.items![this.navBarEssentials!.selectedIndex!].activeColorPrimary;
     double itemWidth = ((MediaQuery.of(context).size.width -
-            ((this.navBarEssentials!.padding?.left ??
-                    MediaQuery.of(context).size.width * 0.05) +
-                (this.navBarEssentials!.padding?.right ??
-                    MediaQuery.of(context).size.width * 0.05))) /
+            ((this.navBarEssentials!.padding?.left ?? MediaQuery.of(context).size.width * 0.05) +
+                (this.navBarEssentials!.padding?.right ?? MediaQuery.of(context).size.width * 0.05))) /
         this.navBarEssentials!.items!.length);
     return Container(
       width: double.infinity,
       height: this.navBarEssentials!.navBarHeight,
       padding: EdgeInsets.only(
           top: this.navBarEssentials!.padding?.top ?? 0.0,
-          left: this.navBarEssentials!.padding?.left ??
-              MediaQuery.of(context).size.width * 0.05,
-          right: this.navBarEssentials!.padding?.right ??
-              MediaQuery.of(context).size.width * 0.05,
-          bottom: this.navBarEssentials!.padding?.bottom ??
-              this.navBarEssentials!.navBarHeight! * 0.1),
+          left: this.navBarEssentials!.padding?.left ?? MediaQuery.of(context).size.width * 0.05,
+          right: this.navBarEssentials!.padding?.right ?? MediaQuery.of(context).size.width * 0.05,
+          bottom: this.navBarEssentials!.padding?.bottom ?? this.navBarEssentials!.navBarHeight! * 0.1),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               AnimatedContainer(
-                duration:
-                    this.navBarEssentials!.itemAnimationProperties?.duration ??
-                        Duration(milliseconds: 300),
-                curve: this.navBarEssentials!.itemAnimationProperties?.curve ??
-                    Curves.ease,
+                duration: this.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 300),
+                curve: this.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
                 color: Colors.transparent,
                 width: this.navBarEssentials!.selectedIndex == 0
                     ? MediaQuery.of(context).size.width * 0.0
@@ -124,14 +101,8 @@ class BottomNavStyle3 extends StatelessWidget {
               ),
               Flexible(
                 child: AnimatedContainer(
-                  duration: this
-                          .navBarEssentials!
-                          .itemAnimationProperties
-                          ?.duration ??
-                      Duration(milliseconds: 300),
-                  curve:
-                      this.navBarEssentials!.itemAnimationProperties?.curve ??
-                          Curves.ease,
+                  duration: this.navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 300),
+                  curve: this.navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
                   width: itemWidth,
                   height: 4.0,
                   alignment: Alignment.center,
@@ -154,11 +125,11 @@ class BottomNavStyle3 extends StatelessWidget {
                   return Flexible(
                     child: GestureDetector(
                       onTap: () {
-                        if (this.navBarEssentials!.items![index].onPressed !=
-                            null) {
-                          this.navBarEssentials!.items![index].onPressed!(this
+                        if (this.navBarEssentials!.items![index].onPressed != null) {
+                          this
                               .navBarEssentials!
-                              .selectedScreenBuildContext);
+                              .items![index]
+                              .onPressed!(this.navBarEssentials!.selectedScreenBuildContext);
                         } else {
                           this.navBarEssentials!.onItemSelected!(index);
                         }
@@ -166,9 +137,7 @@ class BottomNavStyle3 extends StatelessWidget {
                       child: Container(
                         color: Colors.transparent,
                         child: _buildItem(
-                            item,
-                            this.navBarEssentials!.selectedIndex == index,
-                            this.navBarEssentials!.navBarHeight),
+                            item, this.navBarEssentials!.selectedIndex == index, this.navBarEssentials!.navBarHeight),
                       ),
                     ),
                   );
