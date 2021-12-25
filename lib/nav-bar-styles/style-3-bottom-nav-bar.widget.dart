@@ -59,7 +59,7 @@ class BottomNavStyle3 extends StatelessWidget {
   }
 
   TextStyle _titleTextStyle(PersistentBottomNavBarItem item, bool isSelected) {
-    var selectedColor = (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary);
+    final selectedColor = (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary);
     if (item.textStyle != null) {
       return item.textStyle!.apply(color: (isSelected ? selectedColor : item.inactiveColorPrimary));
     }
