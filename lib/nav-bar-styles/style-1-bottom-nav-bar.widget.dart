@@ -46,28 +46,23 @@ class BottomNavStyle1 extends StatelessWidget {
                     ),
                   ),
                   item.title == null
-                      ? SizedBox.shrink()
+                      ? const SizedBox.shrink()
                       : isSelected
                           ? Flexible(
                               child: Material(
                                 type: MaterialType.transparency,
                                 child: FittedBox(
-                                    child: Text(
-                                  item.title!,
-                                  style: item.textStyle != null
-                                      ? (item.textStyle!.apply(
-                                          color: isSelected
-                                              ? (item.activeColorSecondary == null
-                                                  ? item.activeColorPrimary
-                                                  : item.activeColorSecondary)
-                                              : item.inactiveColorPrimary))
-                                      : TextStyle(
-                                          color: (item.activeColorSecondary == null
-                                              ? item.activeColorPrimary
-                                              : item.activeColorSecondary),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12.0),
-                                )),
+                                  child: Text(
+                                    item.title!,
+                                    style: TextStyle(
+                                      color: (item.activeColorSecondary == null
+                                          ? item.activeColorPrimary
+                                          : item.activeColorSecondary),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0,
+                                    ).merge(item.textStyle),
+                                  ),
+                                ),
                               ),
                             )
                           : SizedBox.shrink()
