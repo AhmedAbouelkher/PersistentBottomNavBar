@@ -151,9 +151,12 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
         title: "Home",
-        activeColorPrimary: Colors.blue,
+        textStyle: TextStyle(
+          fontSize: 15,
+        ),
+        activeColorPrimary: Colors.white,
+        activeColorSecondary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
-        inactiveColorSecondary: Colors.purple,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.search),
@@ -182,8 +185,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
             },
           ),
           onPressed: (context) {
-            pushDynamicScreen(context,
-                screen: SampleModalScreen(), withNavBar: true);
+            pushDynamicScreen(context, screen: SampleModalScreen(), withNavBar: true);
           }),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.message),
@@ -234,13 +236,11 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         screens: _buildScreens(),
         items: _navBarsItems(),
         confineInSafeArea: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset: true,
         stateManagement: true,
-        navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-            ? 0.0
-            : kBottomNavigationBarHeight,
+        navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0 ? 0.0 : kBottomNavigationBarHeight,
         hideNavigationBarWhenKeyboardShows: true,
         margin: EdgeInsets.all(0.0),
         popActionScreens: PopActionScreensType.all,
@@ -267,9 +267,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           testContext = context;
         },
         hideNavigationBar: _hideNavBar,
-        decoration: NavBarDecoration(
-            colorBehindNavBar: Colors.indigo,
-            borderRadius: BorderRadius.circular(20.0)),
+        decoration: NavBarDecoration(colorBehindNavBar: Colors.indigo, borderRadius: BorderRadius.circular(20.0)),
         popAllScreensOnTapOfSelectedTab: true,
         itemAnimationProperties: ItemAnimationProperties(
           duration: Duration(milliseconds: 400),
@@ -280,8 +278,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle:
-            NavBarStyle.style17, // Choose the nav bar style with this property
+        navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property
       ),
     );
   }
@@ -315,9 +312,7 @@ class CustomNavBarWidget extends StatelessWidget {
               data: IconThemeData(
                   size: 26.0,
                   color: isSelected
-                      ? (item.activeColorSecondary == null
-                          ? item.activeColorPrimary
-                          : item.activeColorSecondary)
+                      ? (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary)
                       : item.inactiveColorPrimary == null
                           ? item.activeColorPrimary
                           : item.inactiveColorPrimary),
@@ -333,9 +328,7 @@ class CustomNavBarWidget extends StatelessWidget {
                 item.title,
                 style: TextStyle(
                     color: isSelected
-                        ? (item.activeColorSecondary == null
-                            ? item.activeColorPrimary
-                            : item.activeColorSecondary)
+                        ? (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary)
                         : item.inactiveColorPrimary,
                     fontWeight: FontWeight.w400,
                     fontSize: 12.0),

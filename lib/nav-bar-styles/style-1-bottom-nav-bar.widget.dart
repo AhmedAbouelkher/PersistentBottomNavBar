@@ -54,14 +54,7 @@ class BottomNavStyle1 extends StatelessWidget {
                                 child: FittedBox(
                                   child: Text(
                                     item.title!,
-                                    style: item.textStyle ??
-                                        TextStyle(
-                                          color: (item.activeColorSecondary == null
-                                              ? item.activeColorPrimary
-                                              : item.activeColorSecondary),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12.0,
-                                        ),
+                                    style: item.textStyle,
                                   ),
                                 ),
                               ),
