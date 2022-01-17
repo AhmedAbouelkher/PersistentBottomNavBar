@@ -30,7 +30,7 @@ class BottomNavStyle1 extends StatelessWidget {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: EdgeInsets.only(right: item.title == null ? 0.0 : 8),
+                      padding: EdgeInsetsDirectional.only(end: item.title == null ? 0.0 : 8),
                       child: IconTheme(
                         data: IconThemeData(
                             size: item.iconSize,
@@ -54,13 +54,14 @@ class BottomNavStyle1 extends StatelessWidget {
                                 child: FittedBox(
                                   child: Text(
                                     item.title!,
-                                    style: TextStyle(
-                                      color: (item.activeColorSecondary == null
-                                          ? item.activeColorPrimary
-                                          : item.activeColorSecondary),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.0,
-                                    ).merge(item.textStyle),
+                                    style: item.textStyle ??
+                                        TextStyle(
+                                          color: (item.activeColorSecondary == null
+                                              ? item.activeColorPrimary
+                                              : item.activeColorSecondary),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0,
+                                        ),
                                   ),
                                 ),
                               ),
