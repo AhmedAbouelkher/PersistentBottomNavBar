@@ -1,9 +1,9 @@
 part of persistent_bottom_nav_bar;
 
-class BottomNavStyle1 extends StatelessWidget {
+class BottomNavStyle19 extends StatelessWidget {
   final NavBarEssentials? navBarEssentials;
 
-  BottomNavStyle1({
+  BottomNavStyle19({
     Key? key,
     this.navBarEssentials = const NavBarEssentials(items: null),
   });
@@ -12,59 +12,86 @@ class BottomNavStyle1 extends StatelessWidget {
     if (this.navBarEssentials!.navBarHeight == 0) {
       return SizedBox.shrink();
     } else {
+      final _height = height! / 1.2;
       return AnimatedContainer(
+        clipBehavior: Clip.hardEdge,
         width: isSelected ? 120 : 50,
-        height: height! / 1.6,
+        height: _height,
         duration: navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
         curve: navBarEssentials!.itemAnimationProperties?.curve ?? Curves.ease,
-        padding: EdgeInsets.all(item.contentPadding),
+        // padding: EdgeInsets.all(item.contentPadding),
+        padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: isSelected ? item.activeColorPrimary : navBarEssentials!.backgroundColor!,
           borderRadius: BorderRadius.all(Radius.circular(50)),
         ),
-        child: Container(
-          alignment: Alignment.center,
-          height: height / 1.6,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Flexible(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.only(end: item.title == null ? 0.0 : 8),
-                  child: IconTheme(
-                    data: IconThemeData(
-                        size: item.iconSize,
-                        color: isSelected
-                            ? (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary)
-                            : item.inactiveColorPrimary == null
-                                ? item.activeColorPrimary
-                                : item.inactiveColorPrimary),
-                    child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
-                  ),
-                ),
-              ),
-              if (item.title == null)
-                const SizedBox.shrink()
-              else
-                isSelected
-                    ? Flexible(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: FittedBox(
-                            child: Text(
-                              item.title!,
-                              style: item.textStyle,
-                            ),
-                          ),
-                        ),
-                      )
-                    : SizedBox.shrink()
-            ],
-          ),
+        child: Row(
+          children: <Widget>[
+            _buildTitleSection(height, isSelected, item),
+            _buildTitle(item, isSelected),
+          ],
         ),
       );
     }
+  }
+
+  Widget _buildTitleSection(
+    double height,
+    bool isSelected,
+    PersistentBottomNavBarItem item,
+  ) {
+    final iconThemeData = IconThemeData(
+        size: item.iconSize,
+        color: isSelected
+            ? (item.activeColorSecondary == null ? item.activeColorPrimary : item.activeColorSecondary)
+            : item.inactiveColorPrimary == null
+                ? item.activeColorPrimary
+                : item.inactiveColorPrimary);
+    final icon = IconTheme(
+      data: iconThemeData,
+      child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
+    );
+    if (!isSelected) return icon;
+    return Container(
+      constraints: BoxConstraints.tight(Size.square(height / 1.45)),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(3, 0),
+            color: Colors.black12,
+            blurRadius: 10,
+            spreadRadius: .1,
+          ),
+        ],
+      ),
+      child: icon,
+    );
+  }
+
+  Widget _buildTitle(PersistentBottomNavBarItem item, bool isSelected) {
+    if (item.title == null || !isSelected) return const SizedBox.shrink();
+    return Expanded(
+      child: Container(
+        color: Colors.amber,
+        padding: const EdgeInsetsDirectional.only(start: 4),
+        child: Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Text(
+              item.title!,
+              style: item.textStyle?.merge(
+                TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -98,7 +125,10 @@ class BottomNavStyle1 extends StatelessWidget {
                   }
                 },
                 child: _buildItem(
-                    item, this.navBarEssentials!.selectedIndex == index, this.navBarEssentials!.navBarHeight),
+                  item,
+                  this.navBarEssentials!.selectedIndex == index,
+                  this.navBarEssentials!.navBarHeight,
+                ),
               ),
             );
           }).toList(),

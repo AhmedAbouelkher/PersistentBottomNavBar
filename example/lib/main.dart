@@ -154,7 +154,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         textStyle: TextStyle(
           fontSize: 15,
         ),
-        activeColorPrimary: Colors.white,
+        activeColorPrimary: Color(0xE3FFFFFF),
         activeColorSecondary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),
@@ -189,7 +189,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           }),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.message),
-        title: ("Messages"),
+        title: ("Messagesgesges"),
         activeColorPrimary: Colors.deepOrange,
         inactiveColorPrimary: Colors.grey,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
@@ -278,7 +278,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property
+        navBarStyle: NavBarStyle.style19, // Choose the nav bar style with this property
       ),
     );
   }
