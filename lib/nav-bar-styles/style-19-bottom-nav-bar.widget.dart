@@ -73,19 +73,15 @@ class BottomNavStyle19 extends StatelessWidget {
   Widget _buildTitle(PersistentBottomNavBarItem item, bool isSelected) {
     if (item.title == null || !isSelected) return const SizedBox.shrink();
     return Expanded(
-      child: Container(
-        color: Colors.amber,
-        padding: const EdgeInsetsDirectional.only(start: 4),
-        child: Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: Material(
-            type: MaterialType.transparency,
-            child: Text(
-              item.title!,
-              style: item.textStyle?.merge(
-                TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+      child: Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: Material(
+          type: MaterialType.transparency,
+          child: Text(
+            item.title!,
+            style: item.textStyle?.merge(
+              TextStyle(
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
