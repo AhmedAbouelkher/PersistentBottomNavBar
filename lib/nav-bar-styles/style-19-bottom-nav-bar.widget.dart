@@ -45,6 +45,7 @@ class BottomNavStyle19 extends StatelessWidget {
                 : item.inactiveColorPrimary);
 
     final icon = Stack(
+      clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
         IconTheme(
