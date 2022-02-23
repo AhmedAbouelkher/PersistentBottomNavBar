@@ -157,6 +157,24 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         activeColorPrimary: Color(0xE3FFFFFF),
         activeColorSecondary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
+        badgeBuilder: (selected) {
+          if (selected) return const SizedBox.shrink();
+          return PositionedDirectional(
+            top: -5,
+            start: -5,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                shape: BoxShape.circle,
+              ),
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                '5',
+                style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.white),
+              ),
+            ),
+          );
+        },
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.search),

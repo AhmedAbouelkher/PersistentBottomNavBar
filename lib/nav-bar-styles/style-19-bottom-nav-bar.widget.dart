@@ -14,7 +14,7 @@ class BottomNavStyle19 extends StatelessWidget {
     } else {
       final _height = height! / 1.2;
       return AnimatedContainer(
-        clipBehavior: Clip.hardEdge,
+        clipBehavior: item.badgeBuilder != null ? Clip.none : Clip.hardEdge,
         width: isSelected ? 120 : 50,
         height: _height,
         duration: navBarEssentials!.itemAnimationProperties?.duration ?? Duration(milliseconds: 400),
@@ -45,7 +45,7 @@ class BottomNavStyle19 extends StatelessWidget {
                 : item.inactiveColorPrimary);
 
     final icon = Stack(
-      clipBehavior: Clip.none,
+      clipBehavior: item.badgeBuilder != null ? Clip.none : Clip.hardEdge,
       alignment: Alignment.center,
       children: [
         IconTheme(
